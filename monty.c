@@ -20,13 +20,17 @@ if (instruction->argument == NULL)
 fprintf(stderr, "L%d: usage: push integer\n", line_number);
 exit(EXIT_FAILURE);
 }
-push(stack, line_number, atoi(instruction->argument));
+int value = atoi(instruction->argument);
+push(stack, line_number, value);
 }
 else if (strcmp(instruction->opcode, "pall") == 0)
 {
 pall(stack);
 }
-// Add more opcode handling logic here for additional operations
+else if (strcmp(instruction->opcode, "pint") == 0)
+{
+pint(stack, line_number);
+}
 else
 {
 fprintf(stderr, "L%d: unknown opcode %s\n", line_number, instruction->opcode);
