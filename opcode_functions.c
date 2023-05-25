@@ -86,6 +86,9 @@ push_stack(stack, value);
 else if (strcmp(opcode, "pall") == 0)
 {
 print_stack(*stack);
+} else if (strcmp(opcode, "pint") == 0)
+{
+pint(stack, line_number);
 }
 }
 /**
@@ -113,7 +116,20 @@ str++;
 }
 return (1);
 }
-
+/**
+ * pint - Pushes an element to the stack
+ * @stack: Double pointer to the stack
+ * @line_number: Line number in the file
+ */
+void pint(stack_t **stack, unsigned int line_number)
+{
+if (*stack == NULL)
+{
+fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
+exit(EXIT_FAILURE);
+}
+printf("%d\n", (*stack)->n);
+}
 /**
  * execute - Pushes an element to the stack
  * @stack: Double pointer to the stack

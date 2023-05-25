@@ -23,6 +23,7 @@ void push_stack(stack_t **stack, int value);
 void print_stack(stack_t *stack);
 void free_stack(stack_t *stack);
 int is_integer(const char *str);
+void pint(stack_t **stack, unsigned int line_number);
 
 #endif /* MONTY_H */
 
