@@ -1,13 +1,16 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "monty.h"
 
-/* Number of opcodes */
-#define NUM_OPCODES 2
+#define BUFFER_SIZE 1024
 
 int main(int argc, char *argv[])
 {
     FILE *file;
     stack_t *stack = NULL;
-    char line[1024];
+    char buffer[BUFFER_SIZE];
+    unsigned int line_number = 0;
 
     if (argc != 2)
     {
@@ -22,26 +25,15 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    while (fgets(line, sizeof(line), file) != NULL)
+    while (fgets(buffer, BUFFER_SIZE, file) != NULL)
     {
-        /* Rest of the code */
+        line_number++;
+        execute_opcode(&stack, buffer, line_number);
     }
 
-    /* Free resources */
     free_stack(stack);
     fclose(file);
 
     return 0;
 }
 
-
-void free_stack(stack_t *stack)
-{
-    stack_t *current = stack;
-    while (current != NULL)
-    {
-        stack_t *temp = current;
-        current = current->next;
-        free(temp);
-    }
-}
