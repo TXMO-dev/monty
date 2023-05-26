@@ -104,7 +104,9 @@ nop(stack, line_number);
 } else if(strcmp(opcode, "sub") == 0)
 {
 sub(stack, line_number);
-}
+} else if(strcmp(opcode, "div") == 0)
+{
+div(stack, line_number);
 }
 /**
  * sub - Subtracts the top element of the stack from the second top element
@@ -120,6 +122,28 @@ void sub(stack_t **stack, unsigned int line_number)
 	}
 
 	(*stack)->next->n -= (*stack)->n;
+	pop(stack, line_number);
+}
+/**
+ * div_op - Divides the second top element of the stack by the top element
+ * @stack: Double pointer to the stack
+ * @line_number: Line number in the file
+ */
+void div(stack_t **stack, unsigned int line_number)
+{
+	if (*stack == NULL || (*stack)->next == NULL)
+	{
+		fprintf(stderr, "L%u: can't div, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	if ((*stack)->n == 0)
+	{
+		fprintf(stderr, "L%u: division by zero\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	(*stack)->next->n /= (*stack)->n;
 	pop(stack, line_number);
 }
 
