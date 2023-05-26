@@ -95,6 +95,12 @@ pop(stack, line_number);
 } else if(strcmp(opcode, "swap") == 0)
 {
 swap(stack, line_number);
+} else if(strcmp(opcode, "add") == 0)
+{
+add(stack, line_number);
+} else if(strcmp(opcode, "nop") == 0)
+{
+nop(stack, line_number);
 }
 }
 
@@ -139,6 +145,22 @@ void swap(stack_t **stack, unsigned int line_number)
 	(*stack)->next->n = temp;
 }
 /**
+ * add - Adds the top two elements of the stack
+ * @stack: Double pointer to the stack
+ * @line_number: Line number in the file
+ */
+void add(stack_t **stack, unsigned int line_number)
+{
+	if (*stack == NULL || (*stack)->next == NULL)
+	{
+		fprintf(stderr, "L%u: can't add, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	(*stack)->next->n += (*stack)->n;
+	pop(stack, line_number);
+}
+/**
  * execute - Pushes an element to the stack
  * @stack: Double pointer to the stack
  * @line_number: Line number in the file
@@ -163,6 +185,17 @@ str++;
 }
 return (1);
 }
+/**
+ * nop - Doesn't do anything
+ * @stack: Double pointer to the stack
+ * @line_number: Line number in the file
+ */
+void nop(stack_t **stack, unsigned int line_number)
+{
+	(void)stack;
+	(void)line_number;
+}
+
 /**
  * pint - Pushes an element to the stack
  * @stack: Double pointer to the stack
