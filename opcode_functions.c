@@ -101,7 +101,7 @@ add(stack, line_number);
 } else if(strcmp(opcode, "nop") == 0)
 {
 nop(stack, line_number);
-} else if(strcmp(opcode, "sub" == 0)
+} else if(strcmp(opcode, "sub") == 0)
 {
 sub(stack, line_number);
 }
@@ -120,7 +120,7 @@ void sub(stack_t **stack, unsigned int line_number)
 	}
 
 	(*stack)->next->n -= (*stack)->n;
-	pop_stack(stack, line_number);
+	pop(stack, line_number);
 }
 
 /**
